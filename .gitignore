@@ -3,6 +3,10 @@ _site
 .sass-cache
 .vagrant
 
+# ide
+.idea
+.vscode
+
 # general
 .DS_Store
 Thumbs.db

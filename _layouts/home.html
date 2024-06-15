@@ -4,119 +4,34 @@ layout: page
 
 {{ content }}
 
-{% assign posts = paginator.posts | default: site.posts %}
-
-<!-- role="list" needed so that `list-style: none` in Safari doesn't remove the list semantics -->
-<ul class="posts-list list-unstyled" role="list">
-  {% for post in posts %}
-  <li class="post-preview">
-    <article>
-
-      {%- capture thumbnail -%}
-        {% if post.thumbnail-img %}
-          {{ post.thumbnail-img }}
-        {% elsif post.cover-img %}
-          {% if post.cover-img.first %}
-            {{ post.cover-img[0].first.first }}
-          {% else %}
-            {{ post.cover-img }}
-          {% endif %}
-        {% else %}
-        {% endif %}
-      {% endcapture %}
-      {% assign thumbnail=thumbnail | strip %}
-
-      {% if site.feed_show_excerpt == false %}
-      {% if thumbnail != "" %}
-      <div class="post-image post-image-normal">
-        <a href="{{ post.url | absolute_url }}" aria-label="Thumbnail">
-          <img src="{{ thumbnail | absolute_url }}" alt="Post thumbnail">
-        </a>
+<div id="mc_embed_shell">
+  <link href="//cdn-images.mailchimp.com/embedcode/classic-061523.css" rel="stylesheet" type="text/css">
+  <style type="text/css">
+      #mc_embed_signup{background:#fff; false;clear:left; font:14px Helvetica,Arial,sans-serif; width: 600px;}
+      /* Add your own Mailchimp form style overrides in your site stylesheet or in this style block.
+         We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
+  </style>
+  <div id="mc_embed_signup" class="center">
+    <form action="https://github.us22.list-manage.com/subscribe/post?u=c154e428c94c503088f9e27c1&amp;id=8706a3e02d&amp;f_id=006acde1f0" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank">
+      <div id="mc_embed_signup_scroll"><h2>Subscribe to our newsletter to keep up to date on our progress or if you would like to be a part of our journey!</h2>
+        <div class="indicates-required"><span class="asterisk">*</span> indicates required</div>
+        <div class="mc-field-group"><label for="mce-EMAIL">Email Address <span class="asterisk">*</span></label><input type="email" name="EMAIL" class="required email" id="mce-EMAIL" required="" value=""></div><div class="mc-field-group"><label for="mce-FNAME">First Name <span class="asterisk">*</span></label><input type="text" name="FNAME" class="required text" id="mce-FNAME" required="" value=""></div><div class="mc-field-group"><label for="mce-LNAME">Last Name <span class="asterisk">*</span></label><input type="text" name="LNAME" class="required text" id="mce-LNAME" required="" value=""></div><div class="mc-field-group"><label for="mce-PHONE">Phone Number <span class="asterisk">*</span></label><input type="text" name="PHONE" class="REQ_CSS" id="mce-PHONE" value=""></div>
+        <div id="mce-responses" class="clear foot">
+          <div class="response" id="mce-error-response" style="display: none;"></div>
+          <div class="response" id="mce-success-response" style="display: none;"></div>
+        </div>
+        <div aria-hidden="true" style="position: absolute; left: -5000px;">
+          /* real people should not fill this in and expect good things - do not remove this or risk form bot signups */
+          <input type="text" name="b_c154e428c94c503088f9e27c1_8706a3e02d" tabindex="-1" value="">
+        </div>
+        <div class="optionalParent">
+          <div class="clear foot">
+            <input type="submit" name="subscribe" id="mc-embedded-subscribe" class="button" value="Subscribe">
+            <p style="margin: 0px auto;"><a href="http://eepurl.com/iR3lLw" title="Mailchimp - email marketing made easy and fun"><span style="display: inline-block; background-color: transparent; border-radius: 4px;"><img class="refferal_badge" src="https://digitalasset.intuit.com/render/content/dam/intuit/mc-fe/en_us/images/intuit-mc-rewards-text-dark.svg" alt="Intuit Mailchimp" style="width: 220px; height: 40px; display: flex; padding: 2px 0px; justify-content: center; align-items: center;"></span></a></p>
+          </div>
+        </div>
       </div>
-      {% endif %}
-      {% endif %}
+    </form>
+  </div>
+  <script type="text/javascript" src="//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js"></script><script type="text/javascript">(function($) {window.fnames = new Array(); window.ftypes = new Array();fnames[0]='EMAIL';ftypes[0]='email';fnames[1]='FNAME';ftypes[1]='text';fnames[2]='LNAME';ftypes[2]='text';fnames[4]='PHONE';ftypes[4]='phone';fnames[3]='ADDRESS';ftypes[3]='address';fnames[5]='BIRTHDAY';ftypes[5]='birthday';}(jQuery));var $mcj = jQuery.noConflict(true);</script></div>
 
-      <a href="{{ post.url | absolute_url }}">
-        <h2 class="post-title">{{ post.title | strip_html }}</h2>
-
-        {% if post.subtitle %}
-          <h3 class="post-subtitle">
-          {{ post.subtitle | strip_html }}
-          </h3>
-        {% endif %}
-      </a>
-
-      {% if post.author %}
-        <span>By <strong>{{ post.author | strip_html }}</strong></span>
-      {% endif %}
-      <p class="post-meta">
-        {% assign date_format = site.date_format | default: "%B %-d, %Y" %}
-        Posted on {{ post.date | date: date_format }}
-      </p>
-
-      {% if thumbnail != "" %}
-      <div class="post-image post-image-small">
-        <a href="{{ post.url | absolute_url }}" aria-label="Thumbnail">
-          <img src="{{ thumbnail | absolute_url }}" alt="Post thumbnail">
-        </a>
-      </div>
-      {% endif %}
-
-      {% unless site.feed_show_excerpt == false %}
-      {% if thumbnail != "" %}
-      <div class="post-image post-image-short">
-        <a href="{{ post.url | absolute_url }}" aria-label="Thumbnail">
-          <img src="{{ thumbnail | absolute_url }}" alt="Post thumbnail">
-        </a>
-      </div>
-      {% endif %}
-
-      <div class="post-entry">
-        {% assign excerpt_length = site.excerpt_length | default: 50 %}
-        {{ post.excerpt | strip_html | truncatewords: excerpt_length }}
-        {% assign excerpt_word_count = post.excerpt | number_of_words %}
-        {% if post.content != post.excerpt or excerpt_word_count > excerpt_length %}
-          <a href="{{ post.url | absolute_url }}" class="post-read-more">[Read&nbsp;More]</a>
-        {% endif %}
-      </div>
-      {% endunless %}
-
-      {% if site.feed_show_tags != false and post.tags.size > 0 %}
-      <div class="blog-tags">
-        <span>Tags:</span>
-        <!-- role="list" needed so that `list-style: none` in Safari doesn't remove the list semantics -->
-        <ul class="d-inline list-inline" role="list">
-          {% for tag in post.tags %}
-          <li class="list-inline-item">
-            <a href="{{ '/tags' | absolute_url }}#{{- tag -}}">{{- tag -}}</a>
-          </li>
-          {% endfor %}
-        </ul>
-      </div>
-      {% endif %}
-
-    </article>
-  </li>
-  {% endfor %}
-</ul>
-
-{% if paginator.total_pages > 1 %}
-<ul class="pagination main-pager">
-  {% if paginator.previous_page %}
-  <li class="page-item previous">
-    <a class="page-link" href="{{ paginator.previous_page_path | absolute_url }}">
-      <i class="fas fa-arrow-left" alt="Newer Posts"></i>
-      <span class="d-none d-sm-inline-block">Newer Posts</span>
-    </a>
-  </li>
-  {% endif %}
-  {% if paginator.next_page %}
-  <li class="page-item next">
-    <a class="page-link" href="{{ paginator.next_page_path | absolute_url }}">
-      <span class="d-none d-sm-inline-block">Older Posts</span>
-      <i class="fas fa-arrow-right" alt="Older Posts"></i>
-    </a>
-  </li>
-  {% endif %}
-</ul>
-{% endif %}
